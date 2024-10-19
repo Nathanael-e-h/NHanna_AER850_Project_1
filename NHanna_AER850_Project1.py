@@ -1,9 +1,3 @@
-"""
-Created on Thu Oct  3 12:31:53 2024
-
-@author: Engineering
-"""
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -31,12 +25,13 @@ DataVivPicture = plt.figure()
 ax = plt.axes(projection ='3d')
 
 # Plot the points
-ax.scatter(df['X'], df['Y'], df['Y'])
+plot = ax.scatter(df['X'], df['Y'], df['Z'], c=df['Step'])
+color_bar = plt.colorbar(plot)
 
 # Set axis limits
-ax.set_xlim(X_min, X_max)
-ax.set_ylim(Y_min, Y_max)
-ax.set_zlim(Z_min, Z_max)
+# ax.set_xlim(X_min, X_max)
+# ax.set_ylim(Y_min, Y_max)
+# ax.set_zlim(Z_min, Z_max)
 
 
 ###############################
