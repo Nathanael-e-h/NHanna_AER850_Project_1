@@ -13,31 +13,41 @@ print(df.info())
 ###############################
 # STEP 2: Data Visualization
 ###############################
-# do a 3d plot here
-
-# color code points based on step 1-13
-
-X_min, X_max = df['X'].min(), df['X'].max()
-Y_min, Y_max = df['Y'].min(), df['Y'].max()
-Z_min, Z_max = df['Z'].min(), df['Z'].max()
-
 DataVivPicture = plt.figure()
 ax = plt.axes(projection ='3d')
 
-# Plot the points
+# Plot the points, w/ color coding
 plot = ax.scatter(df['X'], df['Y'], df['Z'], c=df['Step'])
-color_bar = plt.colorbar(plot)
+color_bar = plt.colorbar(plot, label='Steps')
 
-# Set axis limits
+# Set axis limits (I'm leaving this out unless I discover it's necessary, which it doesn't seem to be)
+# X_min, X_max = df['X'].min(), df['X'].max()
+# Y_min, Y_max = df['Y'].min(), df['Y'].max()
+# Z_min, Z_max = df['Z'].min(), df['Z'].max()
 # ax.set_xlim(X_min, X_max)
 # ax.set_ylim(Y_min, Y_max)
 # ax.set_zlim(Z_min, Z_max)
 
+# Statistical Analysis
+print(df.describe())
+
+# Create histogram
+DataHistPicture = plt.figure()
+plt.hist(df.iloc[:, 3], bins=13, edgecolor='black', color='purple', align='mid', rwidth=0.8)
+plt.xticks(range(1, 14))
+plt.title('Frequency of Points per Step')
+plt.xlabel('Step')
+plt.ylabel('Frequency')
+
+
 
 ###############################
-# STEP 3: 
+# STEP 3: Correlation Analysis 
 ###############################
-# is the correlation graph
+corr_matrix = df.corr()
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt='.3f')
+plt.title('Correlation Matrix - Steps & Axes')
 
 
 ###############################
