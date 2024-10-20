@@ -33,14 +33,6 @@ ax = plt.axes(projection ='3d')
 plot = ax.scatter(df['X'], df['Y'], df['Z'], c=df['Step'])
 color_bar = plt.colorbar(plot, label='Step')
 
-# Set axis limits (I'm leaving this out unless I discover it's necessary, which it doesn't seem to be)
-# X_min, X_max = df['X'].min(), df['X'].max()
-# Y_min, Y_max = df['Y'].min(), df['Y'].max()
-# Z_min, Z_max = df['Z'].min(), df['Z'].max()
-# ax.set_xlim(X_min, X_max)
-# ax.set_ylim(Y_min, Y_max)
-# ax.set_zlim(Z_min, Z_max)
-
 # Statistical Analysis
 print(df.describe())
 
@@ -72,10 +64,6 @@ plt.title('Correlation Matrix - Steps & Axes')
 DataIn = df[['X', 'Y', 'Z']]
 DataOut = df['Step']
 DataIn_train, DataIn_test, DataOut_train, DataOut_test = train_test_split(DataIn, DataOut, test_size=0.4, random_state=212291, stratify=DataOut)
-
-# Debugging
-# print(f'Training set: {DataOut_train.value_counts()}')
-# print(f'Testing set: {DataOut_test.value_counts()}')
 
 ##### Model 1: Decision Tree
 
@@ -199,7 +187,7 @@ print(f"F1 Score (Weighted): {f1_dt:.4f}")
 # Predict on the test set
 DataOut_pred_rf = grid_search_rf.predict(DataIn_test)
 
-# Calculate accuracDataOut, precision, and F1 score
+# Calculate accuracy, precision, and F1 score
 accuracy_rf = accuracy_score(DataOut_test, DataOut_pred_rf)
 precision_rf = precision_score(DataOut_test, DataOut_pred_rf, average='weighted')
 f1_rf = f1_score(DataOut_test, DataOut_pred_rf, average='weighted')
@@ -261,8 +249,8 @@ plt.show()
 ##########################################################
 # Create base models
 base_models = [
-    ('gbm', grid_search_gbm1.best_estimator_),  # Gradient Boosting Machine
-    ('dt', grid_search_dt.best_estimator_)      # Decision Tree
+    ('gbm', grid_search_gbm1.best_estimator_),  # Gradient Boosting Machine (dropping the 1 since I didn't end up doing two gbm models)
+    ('dt', grid_search_dt.best_estimator_)      # Decision Tree ('dt', with no suffix; dt2 was unreliable)
 ]
 
 # Create a StackingClassifier
